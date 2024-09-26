@@ -6,3 +6,5 @@ langchain_together
 nltk
 fpdf
 PyPDF2
+docx
+io
