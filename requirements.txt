@@ -1,0 +1,8 @@
+PyMuPDF
+flask
+flask_socketio
+langchain
+langchain_together
+nltk
+fpdf
+PyPDF2
