@@ -7,4 +7,3 @@ nltk
 fpdf
 PyPDF2
 docx
-io
