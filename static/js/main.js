@@ -1,29 +1,39 @@
-var socket = io.connect('http://' + document.domain + ':' + location.port);
+// JavaScript to handle status updates and PDF download
+var socket = io.connect(window.location.origin); // Declare socket once
 
 socket.on('update', function(data) {
-    console.log("Received update:", data);  // For debugging
-    var item = document.getElementById(data.file);
-    if (item) {
-        item.querySelector('span').textContent = data.status;
-        if (data.status === 'Completed') {
-            item.querySelector('span').className = 'badge badge-status bg-success';
+    const fileName = data.file;
+    const status = data.status;
+    let statusList = document.getElementById('status-list');
+    let listItem = document.getElementById(fileName);
 
-            // Add download link when processing is completed
-            var downloadLink = document.createElement('a');
-            downloadLink.href = '/download/' + data.file.replace('.csv', '.pdf'); // Adjust if file extension changes
-            downloadLink.textContent = 'Download PDF';
+    if (listItem) {
+        listItem.querySelector('.badge-status').textContent = status;
+        listItem.querySelector('.badge-status').className = 'badge badge-status ' + 
+            (status === 'Completed' ? 'bg-success' : (status === 'Failed' ? 'bg-danger' : 'bg-warning'));
+
+        if (status === 'Completed') {
+            // Create a link to the PDF file
+            const downloadLink = document.createElement('a');
+            downloadLink.href = '/download/' + fileName.replace(/\.(csv|docx|pdf)$/i, '.pdf');
+            downloadLink.textContent = 'Open PDF';
             downloadLink.className = 'btn btn-link ms-3'; // Optional styling
-            item.appendChild(downloadLink);
-        } else if (data.status === 'Failed') {
-            item.querySelector('span').className = 'badge badge-status bg-danger';
-        } else if (data.status === 'Processing') {
-            item.querySelector('span').className = 'badge badge-status bg-primary';
+            downloadLink.target = '_blank'; // Opens the link in a new tab
+
+            // Automatically download the PDF
+            downloadLink.setAttribute('download', fileName.replace(/\.(csv|docx|pdf)$/i, '.pdf'));
+
+            // Trigger the automatic download
+            downloadLink.click();
+
+            listItem.appendChild(downloadLink);
         }
     } else {
-        var newItem = document.createElement('li');
-        newItem.id = data.file;
-        newItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-        newItem.innerHTML = data.file + '<span class="badge badge-status bg-warning">' + data.status + '</span>';
-        document.getElementById('status-list').appendChild(newItem);
+        // If the list item doesn't exist, create it and append it to the list
+        listItem = document.createElement('li');
+        listItem.id = fileName;
+        listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+        listItem.innerHTML = `${fileName} <span class="badge badge-status bg-warning">${status}</span>`;
+        statusList.appendChild(listItem);
     }
 });
