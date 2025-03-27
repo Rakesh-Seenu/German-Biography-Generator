@@ -3,6 +3,7 @@
     participant FileProcessor
     participant VectorStore
     participant OpenAIModel
+``` mermaid
 
     User ->> StreamlitApp: Upload PDF Files & Enter API Key
     StreamlitApp ->> FileProcessor: Process Uploaded PDFs
@@ -16,3 +17,4 @@
     StreamlitApp ->> OpenAIModel: Query LLM with Context
     OpenAIModel -->> StreamlitApp: LLM Response
     StreamlitApp -->> User: Display Answer
+```
