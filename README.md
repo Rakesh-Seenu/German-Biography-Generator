@@ -1,26 +1,21 @@
 # German Biography Generator
-
-## Table of Contents
-1. [Introduction](#introduction)
-2. [Architecture](#architecture)
-3. [Flow Diagram](#flow-diagram)
-4. [Configuration Parameters](#configuration-parameters)
-5. [Setup and Installation](#setup-and-installation)
-6. [Usage](#usage)
-7. [Results](#results)
-8. [Observations](#observations)
-9. [Conclusions](#conclusions)
-10. [References](#references)
-11. [Future Scope](#future-scope)
-
----
-
-## Introduction
-
 This project is a web application that processes interview transcripts and generates structured biographies in German. It supports various file formats (CSV, DOCX, and PDF), extracts text, and then processes it using a large language model (LLM). The processed text is formatted into biographies and saved as downloadable PDF files. The application provides real-time feedback on processing status and supports concurrent uploads.
 
 - **Input**: CSV, DOCX, or PDF files containing interview transcripts.
 - **Output**: Downloadable PDF containing a formatted biography in German.
+
+## Table of Contents
+
+1. [Architecture](#architecture)
+2. [Flow Diagram](#flow-diagram)
+3. [Configuration Parameters](#configuration-parameters)
+4. [Setup and Installation](#setup-and-installation)
+5. [Usage](#usage)
+6. [Results](#results)
+7. [Observations](#observations)
+8. [Conclusions](#conclusions)
+9. [References](#references)
+10. [Future Scope](#future-scope)
 
 ---
 
